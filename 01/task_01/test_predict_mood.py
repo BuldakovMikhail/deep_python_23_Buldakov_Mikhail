@@ -5,7 +5,6 @@ from predict_mood import predict_message_mood
 
 
 class TestPredictMood(unittest.TestCase):
-
     @mock.patch("predict_mood.SomeModel")
     def test_positive_prediction(self, mock_model_constructor):
         mock_model = mock_model_constructor.return_value
@@ -78,4 +77,4 @@ class TestPredictMood(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             predict_message_mood("aboba", mock_model, 1, 0)
 
-        self.assertTrue('Bad threshold' in str(context.exception))
+        self.assertTrue("Bad threshold" in str(context.exception))

@@ -1,5 +1,6 @@
 # Реализовать функцию predict_message_mood, которая приниамает
-# на вход строку, экземпляр модели SomeModel и пороги хорошести. Функция возвращает:
+# на вход строку, экземпляр модели SomeModel и пороги хорошести.
+# Функция возвращает:
 #
 #     "неуд", если предсказание модели меньше bad_threshold
 #     "отл", если предсказание модели больше good_threshold
@@ -15,22 +16,21 @@ class SomeModel:
 
 
 def predict_message_mood(
-        message: str,
-        model: SomeModel,
-        bad_thresholds: float = 0.3,
-        good_thresholds: float = 0.8,
+    message: str,
+    model: SomeModel,
+    bad_thresholds: float = 0.3,
+    good_thresholds: float = 0.8,
 ) -> str:
-
     if bad_thresholds >= good_thresholds:
-        raise Exception('Bad threshold')
+        raise Exception("Bad threshold")
 
     prediction = model.predict(message)
     if prediction < bad_thresholds:
-        return 'неуд'
+        return "неуд"
     elif prediction > good_thresholds:
-        return 'отл'
+        return "отл"
     else:
-        return 'норм'
+        return "норм"
 
 
 # assert predict_message_mood("Чапаев и пустота", model) == "отл"
