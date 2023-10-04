@@ -161,3 +161,20 @@ class TestParseJson(unittest.TestCase):
 
         expected_calls = []
         self.assertEqual(expected_calls, m.mock_calls)
+
+    def test_two_same_keys_in_one_field(self):
+        json_str = '{"name": "Савватий Анисимович Попов ПопоВ", "address": "г. Смоленск, пр. Специалистов, д. 560 стр. 5, 345113", "company": "ООО «Гришина-Панфилова»", "country": "Ливан", "text": "Темнеть бак госпожа ведь выражаться."}'
+        m = Mock()
+
+        parse_json(
+            json_str,
+            m,
+            required_fields=["name"],
+            keywords=["попов"],
+        )
+
+        expected_calls = [
+            mock.call("Попов"),
+            mock.call("ПопоВ"),
+        ]
+        self.assertEqual(expected_calls, m.mock_calls)

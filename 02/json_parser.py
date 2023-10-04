@@ -23,10 +23,17 @@ def parse_json(
                     keyword_callback(v)
             else:
                 keys = list(map(lambda x: x.lower(), value.split(" ")))
-                values_dict = dict(
-                    zip(keys, values)
-                )  # Создаем словар, где ключ - форматированное слово, а значение - исходное
+
+                # Создаем словарь, где ключ - форматированное слово, а значение - исходное
+                values_dict = dict()
+
+                for k, v in zip(keys, values):
+                    if k not in values_dict:
+                        values_dict[k] = [v]
+                    else:
+                        values_dict[k].append(v)
 
                 for k in keywords:
                     if k.lower() in values_dict.keys():
-                        keyword_callback(values_dict[k.lower()])
+                        for v in values_dict[k.lower()]:
+                            keyword_callback(v)
