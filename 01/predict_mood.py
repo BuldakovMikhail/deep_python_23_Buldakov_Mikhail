@@ -21,7 +21,7 @@ def predict_message_mood(
     bad_thresholds: float = 0.3,
     good_thresholds: float = 0.8,
 ) -> str:
-    if bad_thresholds >= good_thresholds:
+    if not bad_thresholds < good_thresholds:
         raise Exception("Bad threshold")
 
     prediction = model.predict(message)

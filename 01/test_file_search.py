@@ -158,3 +158,21 @@ class TestGenerator(unittest.TestCase):
 
                 self.assertEqual(ans[0], "a b")
                 self.assertEqual(ans[1], "b c")
+
+    def test_find_multiple_keywords_in_one_line(self):
+        lines = ["a b", "aboba boba a", "d e"]
+        text = "\n".join(lines)
+
+        search_words = ["aboba", "boba"]
+
+        with mock.patch("builtins.open", new_callable=mock.mock_open, read_data=text):
+            gen = gen_selected_lines("test", search_words)
+
+            ans = []
+
+            for i in gen:
+                ans.append(i)
+
+            self.assertEqual(len(ans), 1)
+
+            self.assertEqual(ans[0], "aboba boba a")
