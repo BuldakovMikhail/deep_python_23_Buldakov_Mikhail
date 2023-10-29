@@ -192,7 +192,7 @@ class TestParseJson(unittest.TestCase):
 
         self.assertTrue("must be not None" in str(context.exception))
 
-    def test_fields_found_one_key_matches_not_in_required_field(self):
+    def test_fields_found_one_key_is_not_in_the_required_field(self):
         json_str = '{"name": "Савватий Анисимович Попов", "address": "г. Смоленск, пр. Специалистов, д. 560 стр. 5, 345113", "company": "ООО «Гришина-Панфилова» Петр", "country": "Ливан", "text": "Темнеть бак госпожа ведь выражаться."}'
         m = Mock()
 
