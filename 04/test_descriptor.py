@@ -31,6 +31,8 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             integer.integer = "aboba"
+
+        self.assertEqual(integer.integer, 10)
         self.assertTrue("Int required" in str(context.exception))
 
     def test_int_field_changing(self):
@@ -42,6 +44,8 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             integer.integer = "aboba"
+
+        self.assertEqual(integer.integer, 100)
         self.assertTrue("Int required" in str(context.exception))
 
     def test_string_field_creating(self):
@@ -50,6 +54,7 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             string.val = 12.23
+        self.assertEqual(string.val, "aboba")
         self.assertTrue("String required" in str(context.exception))
 
     def test_string_field_changing(self):
@@ -61,6 +66,8 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             string.val = 12.23
+
+        self.assertEqual(string.val, "a")
         self.assertTrue("String required" in str(context.exception))
 
     def test_string_field_length_error(self):
@@ -69,6 +76,8 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             string.val = "abobaabobaabobaabobaabobaabobaaboba"
+
+        self.assertEqual(string.val, "aboba")
         self.assertTrue("String length must be" in str(context.exception))
 
     def test_pos_int_field_creation(self):
@@ -77,6 +86,7 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             integer.integer = "aboba"
+        self.assertEqual(integer.integer, 10)
         self.assertTrue("Int required" in str(context.exception))
 
     def test_pos_int_field_changing(self):
@@ -88,6 +98,8 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             integer.integer = "aboba"
+
+        self.assertEqual(integer.integer, 100)
         self.assertTrue("Int required" in str(context.exception))
 
     def test_pos_int_field_try_to_set_negative(self):
@@ -99,6 +111,8 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             integer.integer = -1
+
+        self.assertEqual(integer.integer, 1)
         self.assertTrue("Value must be grater than 0" in str(context.exception))
 
     def test_pos_int_field_try_to_set_zero(self):
@@ -110,4 +124,6 @@ class TestDescriptor(unittest.TestCase):
 
         with self.assertRaises(Exception) as context:
             integer.integer = 0
+
+        self.assertEqual(integer.integer, 1)
         self.assertTrue("Value must be grater than 0" in str(context.exception))
