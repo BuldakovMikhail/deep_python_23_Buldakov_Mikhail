@@ -174,9 +174,9 @@ if __name__ == "__main__":
     print(f"Время создания {N=} классов c weakref: {chest_weakref[0]} мс.")
     print(f"Время изменения {N=} классов c weakref: {chest_weakref[1]} мс.")
 
-    measure_chest_main_memory(N)
-    measure_chest_slots_memory(N)
-    measure_chest_weakref_memory(N)
+    measure_chest_main_memory()
+    measure_chest_slots_memory()
+    measure_chest_weakref_memory()
 
     with cProfile.Profile() as pr:
         measure_chest_main_calls(N)
