@@ -41,7 +41,7 @@ class TestLRUCache(unittest.TestCase):
         self.assertIsNone(cache.get("k2"))
         self.assertEqual(cache.get("k1"), "val1_1")
 
-    def test_lru_value_check_addition_with_out_get(self):
+    def test_lru_value_check_addition_without_get(self):
         cache = LRUCache(2)
 
         cache.set("k1", "val1")
