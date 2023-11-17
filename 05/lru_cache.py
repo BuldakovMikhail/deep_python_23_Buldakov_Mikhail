@@ -21,11 +21,15 @@ class LRUCache:
             self.tail = node.next
             if self.tail:
                 self.tail.prev = None
+            else:
+                self.head = None
 
         elif node == self.head:
             self.head = node.prev
             if self.head:
                 self.head.next = None
+            else:
+                self.tail = None
 
         else:
             if node.prev:
