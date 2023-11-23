@@ -80,7 +80,10 @@ class LRUCache:
 
     def get(self, key):
         if key in self.cache:
-            logger.info("Get: successfully get from cache by key %s", key)
+            logger.info(
+                "Get: successfully get from cache by existing key %s",
+                key,
+            )
 
             temp = self.cache[key]
             self.__delete_node(temp)
