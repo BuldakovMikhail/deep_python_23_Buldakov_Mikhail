@@ -1,10 +1,9 @@
-import aiohttp
+import sys
+from collections import Counter
 import asyncio as aio
 
+import aiohttp
 from bs4 import BeautifulSoup
-from collections import Counter
-
-import sys
 
 
 def get_most_common_words(resp, keys_count=5):
@@ -36,7 +35,12 @@ async def fetch_worker(que, answers_collecter):
             # или какой-то другой вывод информации
             print(f"{url=}: {th.result()}")
             answers_collecter.append((url, th.result()))
-
+        except aiohttp.client_exceptions.InvalidURL:
+            print(f"{url=}: InvalidURL")
+            answers_collecter.append((url, {}))
+        except Exception:
+            print(f"{url=}: Undefined error occured")
+            answers_collecter.append((url, {}))
         finally:
             que.task_done()
 

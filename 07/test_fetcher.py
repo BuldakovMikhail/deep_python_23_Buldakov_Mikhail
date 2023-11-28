@@ -1,7 +1,9 @@
-from fetcher import get_most_common_words, fetch_url, batch_fetch
+from fetcher import get_most_common_words, fetch_url, batch_fetch, fetch_worker
 
 from unittest import IsolatedAsyncioTestCase
 from unittest import mock
+import aiohttp
+import asyncio as aio
 
 import io
 import contextlib
@@ -144,3 +146,31 @@ class TestFetcher(IsolatedAsyncioTestCase):
                 self.assertTrue(mock.call("tu1\n") in mock_get.mock_calls)
                 self.assertTrue(mock.call("tu2\n") in mock_get.mock_calls)
                 self.assertTrue(mock.call("tu3\n") in mock_get.mock_calls)
+
+    @mock.patch("fetcher.fetch_url", side_effect=Exception)
+    async def test_fetch_worker_fail(self, mock_get):
+        mock_get.return_value.__aenter__.return_value.read.return_value = (
+            "<html> a b b c c c d d d d e e e e e f f f f f f </html>"
+        )
+
+        lines = ["tu1\n"]
+        text = "\n".join(lines)
+
+        mock_open = mock.AsyncMock()
+        mock_open.return_value.__aenter__.return_value.readline = "test url"
+
+        res = [
+            ("tu1\n", {}),
+        ]
+        f = io.StringIO()
+        with contextlib.redirect_stdout(f):
+            with mock.patch(
+                "builtins.open", new_callable=mock.mock_open, read_data=text
+            ):
+                val = await batch_fetch("aboba", 1)
+
+                self.assertEqual(val, res)
+                self.assertTrue(mock.call("tu1\n") in mock_get.mock_calls)
+
+        stdout = f.getvalue()
+        self.assertTrue("Undefined error occured" in stdout)
