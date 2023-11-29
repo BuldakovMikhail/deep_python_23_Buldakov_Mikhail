@@ -38,7 +38,7 @@ int arr_append(arr_t *arr, char c)
     }
 
     arr->c[arr->len] = c;
-    arr->len += 1;
+    ++arr->len;
 
     return 0;
 }
@@ -392,8 +392,25 @@ dumps(PyObject *self, PyObject *args)
         }
     }
 
-    formed_str.c[formed_str.len - 2] = '}';
-    formed_str.c[formed_str.len - 1] = '\0';
+    if (pos != 0)
+    {
+        formed_str.c[formed_str.len - 2] = '}';
+        formed_str.c[formed_str.len - 1] = '\0';
+    }
+    else
+    {
+        if (arr_append(&formed_str, '}'))
+        {
+            printf("ERROR: Memory allocation error\n");
+            return NULL;
+        }
+
+        if (arr_append(&formed_str, '\0'))
+        {
+            printf("ERROR: Memory allocation error\n");
+            return NULL;
+        }
+    }
 
     PyObject *res_str = NULL;
 
