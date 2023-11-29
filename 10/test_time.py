@@ -10,7 +10,7 @@ import time
 
 
 def test_time():
-    N = 1000
+    N = 100000
     M = 10
 
     fake = Faker()
