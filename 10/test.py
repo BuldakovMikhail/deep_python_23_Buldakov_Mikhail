@@ -15,6 +15,13 @@ class TestCjson(unittest.TestCase):
 
         self.assertTrue(json_doc == ujson_doc == cjson_doc)
 
+    def test_loads_return_type(self):
+
+        json_str = '{"hello": 10, "world": "value"}'
+        
+        cjson_doc = cjson.loads(json_str)
+        self.assertIsInstance(cjson_doc, dict)
+
     def test_loads_and_dumps(self):
         json_str = '{"hello": 10, "world": "value"}'
         self.assertEqual(json_str, cjson.dumps(cjson.loads(json_str)))
@@ -108,6 +115,12 @@ class TestCjson(unittest.TestCase):
         cjson_doc = cjson.dumps(json)
 
         self.assertEqual('{"world": "value"}', cjson_doc)
+
+    def test_dumps_return_type(self):
+        json = {"world": "value"}
+        cjson_doc = cjson.dumps(json)
+
+        self.assertIsInstance(cjson_doc, str)
 
     def test_dumps_value_is_int(self):
         json_str = {"world": 1002}
