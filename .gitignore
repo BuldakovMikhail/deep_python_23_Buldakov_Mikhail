@@ -1,3 +1,6 @@
 __pycache__
 .vscode
 .coverage
+venv
+*.so
+*.o
