@@ -69,7 +69,7 @@ int is_valid_str(const char *str)
         ++str;
 
     int key_len = 0;
-    while (isalnum(*str))
+    while (isprint(*str) && *str != '"')
     {
         ++str;
         ++key_len;

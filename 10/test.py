@@ -5,6 +5,7 @@ import ujson
 import cjson
 import unittest
 
+
 class TestCjson(unittest.TestCase):
     def test_loads_key_int_and_str(self):
 
@@ -176,6 +177,7 @@ class TestCjson(unittest.TestCase):
             cjson_doc = cjson.dumps(json_str)
         
         self.assertTrue("Expected string or num as a value" in str(context.exception))
+
 
 
 if __name__ == "__main__":
